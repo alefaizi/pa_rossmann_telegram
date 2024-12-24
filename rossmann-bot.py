@@ -53,23 +53,10 @@ def predict(data):
 
     r = requests.post(url, data, headers=header)
     print(f'Status Code {r.status_code}')
-    print(f"Response: {r.text}")  # Verificando o conteúdo da resposta
 
-    try:
-        # Tentando converter a resposta para JSON
-        response_json = r.json()
-        # Criando o DataFrame com a resposta
-        d1 = pd.DataFrame(response_json, columns=response_json[0].keys())
-        return d1
-    except requests.exceptions.JSONDecodeError as e:
-        # Se houver um erro de decodificação, mostre a mensagem de erro
-        print(f"JSON decode error: {e}")
-        print(f"Response text: {r.text}")  # Isso ajuda a identificar o problema com a resposta
-        return 'error'
+    d1 = pd.DataFrame(r.json(), columns=r.json()[0].keys())
 
-    #d1 = pd.DataFrame(r.json(), columns=r.json()[0].keys())
-
-    #return d1
+    return d1
 
 
 def parse_message(message):
