@@ -53,6 +53,7 @@ def predict(data):
 
     r = requests.post(url, data, headers=header)
     print(f'Status Code {r.status_code}')
+    print(f"Response Text: {r.text}") 
 
     d1 = pd.DataFrame(r.json(), columns=r.json()[0].keys())
 
